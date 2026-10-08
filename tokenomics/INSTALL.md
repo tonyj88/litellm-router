@@ -22,10 +22,3 @@ Agents load at session start, so start a new session after installing or editing
 ## Limits
 
 Prices in `reference/economics.md` are list prices used for relative cost. Your gateway's billing is set by its LiteLLM admin, so check its spend logs for real figures.
-EOF'
-cat >> README.md <<'EOF'
-
-## Skills
-
-- [`escalate/`](escalate/INSTALL.md): ask a stronger reviewer model for a diagnosis when a worker is stuck.
-- [`tokenomics/`](tokenomics/INSTALL.md): route a finished plan across Opus, Sonnet, and Haiku through the LiteLLM gateway.
