@@ -21,7 +21,7 @@ The worker saves the brief and the reply to `~/.claude/escalations/<repo>/<times
 
 ## Which model is the reviewer?
 
-The `model:` line in `~/.claude/agents/escalation-reviewer.md` sets it. To change reviewers, edit that one line. The worker is whatever model the session runs on. The skill never sets it.
+The `model:` line in `~/.claude/agents/escalation-reviewer.md` sets it, and it ships as `claude-opus-5-5`. To change reviewers, edit that one line. The worker is whatever model the session runs on, typically `claude-sonnet-5-5` or `claude-haiku-5-5`. The skill never sets it. If the session is already running the reviewer model, the skill stops before writing a brief. The reviewer also reports its own model ID in the result, and the skill rejects the result if it doesn't match the agent file.
 
 The setting lives in the agent file, not a config file, for a practical reason: when the Agent tool starts a subagent, its model override accepts only `sonnet`, `opus`, `haiku`, or `fable`. It can't pass a LiteLLM model name. Agent frontmatter can.
 

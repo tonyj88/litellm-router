@@ -1,7 +1,7 @@
 ---
 name: escalation-reviewer
 description: Diagnoses a compact escalation brief from the primary implementation agent and returns a focused recommendation. Used by the /escalate skill.
-model: REPLACE_WITH_REVIEWER_MODEL
+model: claude-opus-5-5
 tools: Read, Grep, Glob
 maxTurns: 8
 ---
@@ -19,6 +19,8 @@ Reply in exactly this format and keep it concise:
 ```markdown
 # Escalation Result
 
+## Reviewer Model
+State the exact model ID from your system prompt.
 ## Root Cause
 ## Confidence
 High / Medium / Low

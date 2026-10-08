@@ -20,6 +20,23 @@ Suggest it to the user (don't run it yourself) when one of these is true:
 
 Don't suggest it for a single failed command or test, a typo, a straightforward bug, needing to read more files, or after only one attempt.
 
+## Step 0: Check the session model
+
+Read the `model:` line of the `escalation-reviewer` agent file (`.claude/agents/escalation-reviewer.md` in the project if it exists, otherwise `~/.claude/agents/escalation-reviewer.md`). That is the reviewer model.
+
+Compare it with this session's model ID, as stated in your system prompt. Ignore suffixes such as `[1m]`. If the reviewer line is an alias (`opus`, `sonnet`, `haiku`), treat it as matching any session model of that family.
+
+If they match, stop and tell the user:
+
+```
+This session is already running the reviewer model (<id>), so /escalate would ask the same model.
+Gather more evidence, or start a fresh session instead.
+```
+
+Don't write a brief or start the reviewer.
+
+If you can't determine your own model ID, or can't read the agent file, continue to Step 1 and mention the uncertainty in the brief's Current State.
+
 ## Step 1: Write the brief
 
 Write the brief from what you already know. Don't paste the conversation transcript. Keep it under 1,200 words. If space is tight, keep these first, in this order: evidence, failed attempts, code locations, the question.
@@ -57,6 +74,8 @@ Configured reviewer model could not be used: <error>
 ```
 
 Don't retry with another model and don't answer the question yourself.
+
+The result begins with a `Reviewer Model` section. If it doesn't match the agent file's `model:` line (using the alias rule from Step 0), report `Configured reviewer model could not be used: reviewer reported <id>` and don't act on the result.
 
 Save the reviewer's reply as `result.md` next to `brief.md`.
 
